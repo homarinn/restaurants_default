@@ -31,15 +31,12 @@
     </div>
     <div class="col-6 basic_data pr-0">
       <h5 class="mb-1 mt-1">営業時間</h5>
-      <% @opentime.each do |opentime| %>
-        <h5 class="mb-1"><%= opentime %></h5>
-      <% end %>
+      <h5><%= @opentime.html_safe %></h5>
       <h5 class="mt-2">電話番号 <%= @tel %></h5>
-      <h5><%= @postal_code %></h5>
-      <a href="<%= @map_url %>"><h5><%= @address %></h5></a>
+      <a href="<%= @map_url %>"><h5><%= @address.html_safe %></h5></a>
     </div>
     <div class="col-11 pt-2 pr-2 pl-2 pr">
-      <p>&emsp;<%= @pr %></p>
+      <p>&emsp;<%= @pr.html_safe %></p>
     </div>
   </div>
 </div>

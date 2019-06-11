@@ -4,7 +4,6 @@ require "uri"
 
 class RestaurantsController < ApplicationController
   def index
-
   end
 
   def search
@@ -30,7 +29,6 @@ class RestaurantsController < ApplicationController
     res_data = Hash.from_xml(res.body)
     if res_data.has_key?("response")
       datas = res_data["response"]["rest"]
-      # binding.pry
       if datas.kind_of?(Array)
         @restaurants = Kaminari.paginate_array(datas).page(params[:page]).per(10)
       else
@@ -57,21 +55,9 @@ class RestaurantsController < ApplicationController
     res_data = Hash.from_xml(res.body)
     restaurant = res_data["response"]["rest"]
     @image, @name, @tel = restaurant["image_url"]["shop_image1"], restaurant["name"], restaurant["tel"]
-    @pr = restaurant["pr"]["pr_long"]? restaurant["pr"]["pr_long"].gsub("<BR>", " ") : "PRはありません"
-    time = restaurant["opentime"]? restaurant["opentime"].gsub("<BR>", " ") : "営業時間は不明です"
-    @opentime =[]
-    if time
-      time = time.split(" ")
-      time.each_with_index do |opentime, i|
-        @opentime[i] = opentime
-      end
-    end
-
-    if restaurant["address"]
-      location = restaurant["address"].split(" ")
-      @postal_code, @address = location[0], location[1]
-    end
-    # binding.pry
+    @pr = restaurant["pr"]["pr_long"]? restaurant["pr"]["pr_long"]: "PRはありません"
+    @opentime = restaurant["opentime"]? restaurant["opentime"] : "営業時間は不明です"
+    @address = restaurant["address"]? restaurant["address"].sub(/ /,"<br>") : "住所は不明です"
     @map_url = "https://maps.google.com/maps?q=#{restaurant["latitude"]},#{restaurant["longitude"]}"
   end
 end
