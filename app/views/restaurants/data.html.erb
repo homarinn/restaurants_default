@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="col-2 ml-5 search_form h-50">
+    <form name="search">
+      <div class="form-group">
+        <label for="radius">検索半径</label>
+        <div class="input">
+          <select name="radius" id="radius" class="form-control">
+            <option value="1">300</option>
+            <option value="2">500</option>
+            <option value="3">1000</option>
+            <option value="4">2000</option>
+            <option value="5">3000</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="word">検索ワード</label>
+        <div class="input">
+          <input type="text" class="form-control" name="word" id="word" placeholder="（例）ラーメン">
+        </div>
+      </div>
+    </form>
+    <div class="right-button">
+      <button type="submit" class="btn btn-primary" onclick="getPosition();">検索</button>
+    </div>
+  </div> 
+
+  <div class="col-7 ml-5 restaurant row">
+    <div class="r-image col-5" style="background-image: url(<%= @image? @image : '/image.png' %>);">
+      <h4 class="w-100 pl-2"><%= @name %></h4>
+    </div>
+    <div class="col-6 basic_data pr-0">
+      <h5 class="mb-1 mt-1">営業時間</h5>
+      <% @opentime.each do |opentime| %>
+        <h5 class="mb-1"><%= opentime %></h5>
+      <% end %>
+      <h5 class="mt-2">電話番号 <%= @tel %></h5>
+      <h5><%= @postal_code %></h5>
+      <a href="<%= @map_url %>"><h5><%= @address %></h5></a>
+    </div>
+    <div class="col-11 pt-2 pr-2 pl-2 pr">
+      <p>&emsp;<%= @pr %></p>
+    </div>
+  </div>
+</div>

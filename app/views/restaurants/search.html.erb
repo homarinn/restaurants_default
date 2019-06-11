@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="col-2 ml-5 search_form h-50">
+    <form name="search">
+      <div class="form-group">
+        <label for="radius">検索半径</label>
+        <div class="input">
+          <select name="radius" id="radius" class="form-control">
+            <option value="1">300</option>
+            <option value="2">500</option>
+            <option value="3">1000</option>
+            <option value="4">2000</option>
+            <option value="5">3000</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="word">検索ワード</label>
+        <div class="input">
+          <input type="text" class="form-control" name="word" id="word" placeholder="（例）ラーメン">
+        </div>
+      </div>
+    </form>
+    <div class="right-button">
+      <button type="submit" class="btn btn-primary" onclick="getPosition();">検索</button>
+    </div>
+  </div>
+  <div class="col-7 ml-3 pl-3">
+    <% if @restaurants %>
+      <ul class="list-unstyled w-100">
+        <% @restaurants.each do |restaurant| %>
+          <%= render "result", restaurant: restaurant %>
+        <% end %>
+      </ul>
+      <h5 class="w-100"><%= paginate(@restaurants) %></h5>
+    <% else %>
+      <ul class="list-unstyled w-100">
+        <%= render "result", restaurant: @restaurant %>
+      </ul>
+    <% end %>
+  </div>
+</div>
